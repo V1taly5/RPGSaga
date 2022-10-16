@@ -12,6 +12,7 @@ namespace RPGSaga.Abilities
             UsageLimit = 1;
             SkippingMove = false;
             IsFire = false;
+            Duration = 1;
         }
 
         public string Name {get;}
@@ -25,6 +26,8 @@ namespace RPGSaga.Abilities
         public bool SkippingMove {get; set; }
 
         public bool IsFire {get;}
+
+        public int Duration{ get; set; }
 
         public bool СheckUsageLimit()
         {

@@ -31,18 +31,15 @@ namespace RPGSaga.Heroes
             } 
         }
 
+        public abstract Player Opponent{get; set;}
+
         public bool IsDead {get; set; }
 
         public bool IsFire {get; set; }
 
         public int HP {get; protected set; }
 
-        public void MakeMove()
-        {
-
-            //  проверка всех эффектов на персонаже
-            // + сам удар
-        }
+        public abstract void MakeMove();
 
         public abstract void DealDamage();
 

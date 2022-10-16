@@ -12,6 +12,8 @@ namespace RPGSaga.Interface
 
         public bool IsFire {get;} // проверка вызывает ли абилка возгорание проттвника
 
+         public int Duration{ get; set; }
+
         public bool СheckUsageLimit();
     }
 }
