@@ -2,22 +2,19 @@ namespace RPGSaga.Abilities
 {
     using RPGSaga.Interface;
 
-    public class VengeanceStrike : IAbility
+    public class Spellbinding : IAbility
     {
-        public VengeanceStrike(int dmg)
+        public Spellbinding()
         {   
-            Name = "Vengeance Strike";
-            Damage_Multiplier = 1.3;
-            Damage = dmg * Damage_Multiplier;
+            Name = "Spellbinding";
+            Damage = 0;
             UsageLimit = 1;
-            SkippingMove = false;
+            SkippingMove = true;
             IsFire = false;
             Duration = 1;
         }
 
         public string Name {get;}
-
-        public double Damage_Multiplier {get; set;}
 
         public double Damage{get; set; }
 

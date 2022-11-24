@@ -4,13 +4,20 @@ namespace RPGSaga.Heroes
     using RPGSaga.Abilities;
     using RPGSaga;
 
-    public class Knight : Player
+    public class Archer : Player
     {
-
-        private bool _isSkip;
+         private bool _isSkip;
         private Player _opponent;
         List<IAbility> _abilities;
         List<IAbility> _effectsList;
+
+        public Archer(string name, int hp, int strength)
+       : base(name, hp, strength)
+       {
+        _abilities = new List<IAbility>() {new Hit(strength), new FireArrows()};
+        _effectsList = new List<IAbility>();
+        // что-то ещё
+       }
 
         public override Player Opponent 
         {
@@ -25,40 +32,8 @@ namespace RPGSaga.Heroes
             }
         }
 
-       public Knight(string name, int hp, int strength)
-       : base(name, hp, strength)
-       {
-        _abilities = new List<IAbility>() {new Hit(strength), new VengeanceStrike(strength)};
-        _effectsList = new List<IAbility>();
-        // что-то ещё
-       }
-
-       public void SetOppnent(Player opponent)
-       {
-            _opponent = opponent;
-       }
-
-        public override void Addeffect(IAbility effect)
+        public override void MakeMove()
         {
-            _effectsList.Add(effect);
-        }
-
-       public override void DealDamage()
-        {
-            int index = Random.Shared.Next(0, _abilities.Count);
-            _opponent.Addeffect(_abilities[index]);
-            Logger.WriteLog($"{this.Name} применяет {_abilities[index].Name} и наносит {(int)_abilities[index].Damage}");
-            _abilities[index].UsageLimit -=1;
-            if (_abilities[index].UsageLimit == 0)
-            {
-                Logger.WriteLog($"{ToString()} used maximum times of {_abilities[index].Name}");
-                _abilities.RemoveAt(index);
-            }
-            
-        }
-        
-         public override void MakeMove()
-         {
             _isSkip = false;
             List<IAbility> effects =_effectsList;
             foreach (var effect in _effectsList)
@@ -81,21 +56,20 @@ namespace RPGSaga.Heroes
                 }
 
                 HP -= (int)effect.Damage;
+
                 if (HP <= 0)
                 {
                     IsDead = true;
                     return;
                 }
-                if (HP <= 0)
-                {
-                    IsDead = true;
-                    return;
-                }
+
                 effect.Duration -= 1;
+
                 if (effect.Duration <= 0)
                 {
                     _effectsList.Remove(effect);
                 }
+
                 if(_effectsList.Count<=1)
                 {
                     break;
@@ -103,15 +77,38 @@ namespace RPGSaga.Heroes
             }
             Logger.WriteLog($"{ToString()} has {HP} HP");
             Logger.WriteLog("-------------------------------------------------------");
-           
-           if (!_isSkip )
-           {
+        
+            if (!_isSkip )
+            {
                 DealDamage();
-           }
+            }
+        }
+        public override void Addeffect(IAbility effect)
+        {
+            _effectsList.Add(effect);
+        }
+
+        public void SetOppnent(Player opponent)
+        {    
+            _opponent = opponent;
+        }
+
+         public override void DealDamage()
+        {
+            int index = Random.Shared.Next(0, _abilities.Count);
+            _opponent.Addeffect(_abilities[index]);
+            Logger.WriteLog($"{this.Name} применяет {_abilities[index].Name} и наносит {(int)_abilities[index].Damage}");
+            _abilities[index].UsageLimit -=1;
+            if (_abilities[index].UsageLimit == 0)
+            {
+                Logger.WriteLog($"{ToString()} used maximum times of {_abilities[index].Name}");
+                _abilities.RemoveAt(index);
+            }
+            
         }
         public override void SetDefaultValues()
         {
-            HP = 95;
+            HP= 95;
             IsDead = false;
             IsFire = false;
             AddAbilities();
@@ -119,15 +116,14 @@ namespace RPGSaga.Heroes
 
         public override string ToString()
         {
-            return $"Knight: {Name}";
+            return $"Archer: {Name}";
         }
 
         protected void AddAbilities()
         {
             _abilities.Clear();
             _abilities.Add(new Hit(Strength));
-            _abilities.Add(new VengeanceStrike(Strength));
+            _abilities.Add(new FireArrows());
         }
-
     }
 }

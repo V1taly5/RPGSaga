@@ -44,5 +44,7 @@ namespace RPGSaga.Heroes
         public abstract void DealDamage();
 
         public abstract void Addeffect(IAbility effect);
+
+        public abstract void SetDefaultValues();
     }
 }

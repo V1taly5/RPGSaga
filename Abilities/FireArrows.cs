@@ -1,21 +1,20 @@
 namespace RPGSaga.Abilities
 {
+    using System;
     using RPGSaga.Interface;
 
-    public class VengeanceStrike : IAbility
+    public class FireArrows : IAbility
     {
-        public VengeanceStrike(int dmg)
-        {   
-            Name = "Vengeance Strike";
-            Damage_Multiplier = 1.3;
-            Damage = dmg * Damage_Multiplier;
+        public FireArrows()
+        {
+            Name = "Fire Arrows";
+            Damage = 0;
             UsageLimit = 1;
             SkippingMove = false;
-            IsFire = false;
-            Duration = 1;
+            IsFire = true;
+            Duration = 100000;
         }
-
-        public string Name {get;}
+         public string Name {get;}
 
         public double Damage_Multiplier {get; set;}
 
