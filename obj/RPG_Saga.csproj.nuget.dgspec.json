@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\source\\Project\\c#\\lessons\\RPGSaga\\RPG_Saga.csproj": {}
+    "D:\\Project\\training\\c#\\RPGSaga\\RPG_Saga.csproj": {}
   },
   "projects": {
-    "D:\\source\\Project\\c#\\lessons\\RPGSaga\\RPG_Saga.csproj": {
+    "D:\\Project\\training\\c#\\RPGSaga\\RPG_Saga.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\source\\Project\\c#\\lessons\\RPGSaga\\RPG_Saga.csproj",
+        "projectUniqueName": "D:\\Project\\training\\c#\\RPGSaga\\RPG_Saga.csproj",
         "projectName": "RPG_Saga",
-        "projectPath": "D:\\source\\Project\\c#\\lessons\\RPGSaga\\RPG_Saga.csproj",
-        "packagesPath": "C:\\Users\\egoro\\.nuget\\packages\\",
-        "outputPath": "D:\\source\\Project\\c#\\lessons\\RPGSaga\\obj\\",
+        "projectPath": "D:\\Project\\training\\c#\\RPGSaga\\RPG_Saga.csproj",
+        "packagesPath": "C:\\Users\\vitaly\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\training\\c#\\RPGSaga\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\egoro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vitaly\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -54,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.111\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-rc.2.21505.57\\RuntimeIdentifierGraph.json"
         }
       }
     }
