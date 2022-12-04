@@ -7,65 +7,41 @@ namespace RPGSaga.Heroes
     public class Knight : Player
     {
 
-        private bool _isSkip;
-        private Player _opponent;
-        List<IAbility> _abilities;
-        List<IAbility> _effectsList;
+        private bool isSkip;
+        private Player opponent;
+        List<IAbility> abilities;
+        List<IAbility> effectsList;
+
+        public Knight(string name, int hp, int strength)
+        : base(name, hp, strength)
+        {
+            abilities = new List<IAbility>() {new Hit(strength), new VengeanceStrike(strength)};
+            effectsList = new List<IAbility>();
+            // что-то ещё
+        }
 
         public override Player Opponent 
         {
             get
             {
-                return _opponent;
+                return opponent;
             }
 
             set
             {
-                _opponent = value;
+                opponent = value;
             }
         }
-
-       public Knight(string name, int hp, int strength)
-       : base(name, hp, strength)
-       {
-        _abilities = new List<IAbility>() {new Hit(strength), new VengeanceStrike(strength)};
-        _effectsList = new List<IAbility>();
-        // что-то ещё
-       }
-
-       public void SetOppnent(Player opponent)
-       {
-            _opponent = opponent;
-       }
-
-        public override void Addeffect(IAbility effect)
+         
+        public override void MakeMove()
         {
-            _effectsList.Add(effect);
-        }
-
-       public override void DealDamage()
-        {
-            int index = Random.Shared.Next(0, _abilities.Count);
-            _opponent.Addeffect(_abilities[index]);
-            Logger.WriteLog($"{this.Name} применяет {_abilities[index].Name} и наносит {(int)_abilities[index].Damage}");
-            _abilities[index].UsageLimit -=1;
-            if (_abilities[index].UsageLimit == 0)
-            {
-                Logger.WriteLog($"{ToString()} used maximum times of {_abilities[index].Name}");
-                _abilities.RemoveAt(index);
-            }
-            
-        }
-        
-         public override void MakeMove()
-         {
-            _isSkip = false;
-            List<IAbility> effects =_effectsList;
-            foreach (var effect in _effectsList)
+            isSkip = false;
+            List<IAbility> effects =effectsList;
+            foreach (var effect in effectsList.ToList())
             {
                 if (effect.SkippingMove)
                 {
-                    _isSkip = true;
+                    isSkip = true;
                     Logger.WriteLog($"{ToString()} is skipping step");
                 }
 
@@ -91,23 +67,46 @@ namespace RPGSaga.Heroes
                     IsDead = true;
                     return;
                 }
+                
                 effect.Duration -= 1;
                 if (effect.Duration <= 0)
                 {
-                    _effectsList.Remove(effect);
+                    effectsList.Remove(effect);
                 }
-                if(_effectsList.Count<=1)
+                if(effectsList.Count<=1)
                 {
                     break;
                 }
             }
             Logger.WriteLog($"{ToString()} has {HP} HP");
             Logger.WriteLog("-------------------------------------------------------");
-           
-           if (!_isSkip )
-           {
+            
+            if (!isSkip )
+            {
                 DealDamage();
-           }
+            }  
+        }
+
+        public override void Addeffect(IAbility effect)
+        {
+            effectsList.Add(effect);
+        }
+
+        public void SetOppnent(Player Opponent)
+        {
+            opponent = Opponent;
+        }
+        public override void DealDamage()
+        {
+            int index = Random.Shared.Next(0, abilities.Count);
+            opponent.Addeffect(abilities[index]);
+            Logger.WriteLog($"{this.ToString()} применяет {abilities[index].Name} и наносит {(int)abilities[index].Damage}");
+            abilities[index].UsageLimit -=1;
+            if (abilities[index].UsageLimit == 0)
+            {
+                Logger.WriteLog($"{ToString()} used maximum times of {abilities[index].Name}");
+                abilities.RemoveAt(index);
+            }
         }
         public override void SetDefaultValues()
         {
@@ -119,14 +118,15 @@ namespace RPGSaga.Heroes
 
         public override string ToString()
         {
-            return $"Knight: {Name}";
+            return $"Knight: ({Name})";
         }
 
         protected void AddAbilities()
         {
-            _abilities.Clear();
-            _abilities.Add(new Hit(Strength));
-            _abilities.Add(new VengeanceStrike(Strength));
+            abilities.Clear();
+            effectsList.Clear();
+            abilities.Add(new Hit(Strength));
+            abilities.Add(new VengeanceStrike(Strength));
         }
 
     }

@@ -11,7 +11,7 @@ namespace RPGSaga.Generator
 
         public TournamentListGenerator(int listSize)
         {
-            System.Console.WriteLine(listSize);
+            //System.Console.WriteLine(listSize);
             ListSize = listSize;
             creatorPlayer = new CreatorPlayer();
             tournamentList = new List<Player>();

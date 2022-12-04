@@ -10,8 +10,6 @@
     {
         public static void Main(string[] args)
         {
-
-
             // Knight player1 = new Knight("Hary", 100, 5);
             // Logger.WriteLog($"name: {player1.Name}, hp: {player1.HP}, strength: {player1.Strength}");
 
@@ -30,7 +28,7 @@
             // fight.SetOpponent();
             // Console.WriteLine(fight.StartFight());
 
-            var gameBuilder = new BattlesBuilder(4);
+            var gameBuilder = new BattlesBuilder(10);
             gameBuilder.StartTournament();
             gameBuilder.GetWinner();
         } 

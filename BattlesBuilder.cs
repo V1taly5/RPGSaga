@@ -12,7 +12,6 @@ namespace RPGSaga
 
         public BattlesBuilder(int size)
         {
-            System.Console.WriteLine(size);
             Size = size;
             tournamentListGenerator = new TournamentListGenerator(Size);
             tournamentList = new List<Player>();
@@ -40,17 +39,26 @@ namespace RPGSaga
 
         public void StartTournament()
         {
-            System.Console.WriteLine("sdsdsd");
+            System.Console.WriteLine("Начало Турнира!");
             tournamentList = tournamentListGenerator.GenerateTournamentList();
-
-            for(int i = 0; i < Size - 1; i++ )
+            int i = 0;
+            while(tournamentList.Count != 1)
             {
+                i++;
                 Logger.WriteLog("");
                 Logger.WriteLog($"Round: {i}");
                 Logger.WriteLog("");
-                Logger.WriteLog($"size-1: {Size - 1}");
+                Logger.WriteLog("Участники:");
                 RunBattle(tournamentList);
             }
+            // for(int i = 0; i < Size - 2; i++ )
+            // {
+            //     Logger.WriteLog("");
+            //     Logger.WriteLog($"Round: {i+1}");
+            //     Logger.WriteLog("");
+            //     Logger.WriteLog("Участники:");
+            //     RunBattle(tournamentList);
+            // }
 
             foreach (var player in tournamentList)
             {
@@ -62,9 +70,8 @@ namespace RPGSaga
         {
             List<Player> playersList = new List<Player>(players);
             //playersList = players;
-            
 
-            foreach(var player in playersList)
+            foreach(var player in playersList.ToList())
             {
                 System.Console.WriteLine(player.ToString());
                 player.SetDefaultValues();
@@ -73,16 +80,45 @@ namespace RPGSaga
             if (playersList.Count > 1)
             {
                 tournamentList.Clear();
-                for (int i = 0; i < playersList.Count; i += 2)
+                if (playersList.Count%2 == 0)
                 {
-                    System.Console.WriteLine($"оно {playersList.Count}");
-                    System.Console.WriteLine($"{playersList[i]} {playersList[i+1]}");
-                    System.Console.WriteLine("sdsdsd");
-                    fight = new Fight(playersList[i], playersList[i+1]);
-                    fight.SetOpponent();
-                    tournamentList.Add(fight.StartFight());
-                     
+                    for (int i = 0; i < playersList.Count; i += 2)
+                    {
+                        Logger.WriteLog("");
+                        Logger.WriteLog($"Бой между: {playersList[i]}, {playersList[i+1]}");
+                        fight = new Fight(playersList[i], playersList[i+1]);
+                        fight.SetOpponent();
+                        tournamentList.Add(fight.StartFight());
+                    }
+                }else{
+                    for (int i = 0; i < playersList.Count-1; i += 2)
+                    {
+                        Logger.WriteLog("");
+                        Logger.WriteLog($"Бой между: {playersList[i]}, {playersList[i+1]}");
+                        fight = new Fight(playersList[i], playersList[i+1]);
+                        fight.SetOpponent();
+                        tournamentList.Add(fight.StartFight());
+                    }
+                    tournamentList.Add(playersList.Last());
                 }
+                // for (int i = 0; i < playersList.Count; i += 2)
+                // {
+                   
+                //     Logger.WriteLog("");
+                //     Logger.WriteLog($"Бой между: {playersList[i]}, {playersList[i+1]}");
+                //     fight = new Fight(playersList[i], playersList[i+1]);
+                //     fight.SetOpponent();
+                //     tournamentList.Add(fight.StartFight());
+                
+                //     System.Console.WriteLine(playersList.Count);
+                //     Logger.WriteLog($"тут {i}");
+                //     Logger.WriteLog("");
+                //     Logger.WriteLog($"Бой между: {playersList[i]}, {playersList[i+1]}");
+                //     fight = new Fight(playersList[i], playersList[i+1]);
+                //     fight.SetOpponent();
+                //     tournamentList.Add(fight.StartFight());
+                     
+                // }
             }
             
            return tournamentList;
@@ -91,9 +127,9 @@ namespace RPGSaga
         public void GetWinner()
         {
             Logger.WriteLog("=======================================");
-            Logger.WriteLog("Winner List");
+            Logger.WriteLog($"Winner IS {tournamentList[0]}");
             Logger.WriteLog("=======================================");
-            Console.WriteLine(tournamentList[0]);
+            //Console.WriteLine(tournamentList[0]);
         }
  
     }

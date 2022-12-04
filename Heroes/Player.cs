@@ -4,9 +4,9 @@ namespace RPGSaga.Heroes
     using RPGSaga.Interface;
     public abstract class Player : IPlayer
     {
-        private int _strength;
+        private int strength;
 
-        private bool _isSkip;
+        private bool isSkip;
 
         public Player(string name, int hp, int strength)
         {
@@ -23,11 +23,11 @@ namespace RPGSaga.Heroes
         {
             get
             {
-                return _strength;
+                return strength;
             } 
             set
             {
-                _strength = value;
+                strength = value;
             } 
         }
 
